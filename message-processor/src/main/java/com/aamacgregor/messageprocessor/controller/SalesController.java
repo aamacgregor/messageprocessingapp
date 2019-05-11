@@ -1,7 +1,7 @@
 package com.aamacgregor.messageprocessor.controller;
 
-import com.aamacgregor.messageprocessor.model.vo.QuantitySale;
 import com.aamacgregor.messageprocessor.model.vo.Sale;
+import com.aamacgregor.messageprocessor.model.vo.SaleValueAdjustment;
 import com.aamacgregor.messageprocessor.service.SalesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +22,8 @@ public class SalesController {
         salesService.processSale(sale);
     }
 
-    @PostMapping("/api/quantity/sale")
-    public void processQuantitySale(@RequestBody QuantitySale quantitySale) {
-        salesService.processSale(quantitySale);
+    @PostMapping("/api/adjustment")
+    public void processSaleValueAdjustment(@RequestBody SaleValueAdjustment saleValueAdjustment) {
+        salesService.processAdjustment(saleValueAdjustment);
     }
 }

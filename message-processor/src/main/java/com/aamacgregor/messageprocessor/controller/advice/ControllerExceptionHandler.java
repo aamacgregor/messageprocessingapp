@@ -1,4 +1,4 @@
-package com.aamacgregor.messageprocessor.advice;
+package com.aamacgregor.messageprocessor.controller.advice;
 
 import com.aamacgregor.messageprocessor.exception.*;
 import org.springframework.http.HttpHeaders;
@@ -12,9 +12,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {InvalidProductValueException.class, InvalidQuantityException.class,
-            MissingProductException.class, MissingProductValueException.class,
-            MissingQuantityException.class, MissingSaleException.class})
+    @ExceptionHandler(value = {InvalidProductNameException.class, InvalidProductValueException.class,
+            InvalidQuantityException.class, InvalidAdjustmentValueException.class, MissingProductException.class,
+            MissingProductValueException.class, MissingQuantityException.class, MissingSaleException.class,
+            MissingAdjustmentValueException.class, MissingAdjustmentOperationException.class})
     protected ResponseEntity<Object> handleInvalidInputException(
             RuntimeException ex, WebRequest request) {
         String bodyOfResponse = ex.getMessage();
