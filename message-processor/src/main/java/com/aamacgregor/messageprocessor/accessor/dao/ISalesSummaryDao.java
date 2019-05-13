@@ -1,4 +1,4 @@
-package com.aamacgregor.messageprocessor.dao;
+package com.aamacgregor.messageprocessor.accessor.dao;
 
 import com.aamacgregor.messageprocessor.model.vo.SalesSummary;
 

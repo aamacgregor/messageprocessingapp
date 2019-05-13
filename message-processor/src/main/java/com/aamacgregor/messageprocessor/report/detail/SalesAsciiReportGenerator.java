@@ -1,6 +1,6 @@
 package com.aamacgregor.messageprocessor.report.detail;
 
-import com.aamacgregor.messageprocessor.dao.ISalesSummaryDao;
+import com.aamacgregor.messageprocessor.accessor.dao.ISalesSummaryDao;
 import com.aamacgregor.messageprocessor.model.vo.SalesSummary;
 import com.aamacgregor.messageprocessor.report.IReportConsumer;
 import com.aamacgregor.messageprocessor.report.ISalesReportGenerator;

@@ -1,8 +1,8 @@
-package com.aamacgregor.messageprocessor.dao.detail;
+package com.aamacgregor.messageprocessor.accessor.dao.detail;
 
-import com.aamacgregor.messageprocessor.dao.ISalesAdjustmentDao;
-import com.aamacgregor.messageprocessor.dao.ISalesDao;
-import com.aamacgregor.messageprocessor.dao.ISalesSummaryDao;
+import com.aamacgregor.messageprocessor.accessor.dao.ISalesAdjustmentDao;
+import com.aamacgregor.messageprocessor.accessor.dao.ISalesDao;
+import com.aamacgregor.messageprocessor.accessor.dao.ISalesSummaryDao;
 import com.aamacgregor.messageprocessor.model.vo.Sale;
 import com.aamacgregor.messageprocessor.model.vo.SaleValueAdjustment;
 import com.aamacgregor.messageprocessor.model.vo.SalesSummary;

@@ -1,13 +1,12 @@
 package com.aamacgregor.messageprocessor.report.detail;
 
-import com.aamacgregor.messageprocessor.dao.ISalesAdjustmentDao;
+import com.aamacgregor.messageprocessor.accessor.dao.ISalesAdjustmentDao;
 import com.aamacgregor.messageprocessor.model.vo.SaleValueAdjustment;
 import com.aamacgregor.messageprocessor.report.IReportConsumer;
 import com.aamacgregor.messageprocessor.report.ISalesAdjustmentReportGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.Writer;
 import java.util.Collection;
 
 @Component

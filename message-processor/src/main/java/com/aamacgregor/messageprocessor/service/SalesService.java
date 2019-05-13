@@ -1,7 +1,7 @@
 package com.aamacgregor.messageprocessor.service;
 
-import com.aamacgregor.messageprocessor.dao.ISalesAdjustmentDao;
-import com.aamacgregor.messageprocessor.dao.ISalesDao;
+import com.aamacgregor.messageprocessor.accessor.dao.ISalesAdjustmentDao;
+import com.aamacgregor.messageprocessor.accessor.dao.ISalesDao;
 import com.aamacgregor.messageprocessor.model.vo.Sale;
 import com.aamacgregor.messageprocessor.model.vo.SaleValueAdjustment;
 import com.aamacgregor.messageprocessor.report.ReportScheduler;
