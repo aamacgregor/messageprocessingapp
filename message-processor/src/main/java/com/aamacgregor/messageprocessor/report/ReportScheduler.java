@@ -5,21 +5,37 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
+/**
+ * Responsible for scheduling report generation
+ */
 @Component
 public class ReportScheduler {
 
     private int messageCount = 0;
-    private final Collection<ReportSchedulerTask> reportSchedulerTasks;
+    private final Collection<IReportGenerator> reportSchedulerTasks;
 
 
-    public ReportScheduler(@Autowired Collection<ReportSchedulerTask> reportSchedulerTasks) {
+    /**
+     * Constructs a ReportScheduler
+     *
+     * @param reportSchedulerTasks the report generators to use when generating the reports
+     */
+    public ReportScheduler(@Autowired Collection<IReportGenerator> reportSchedulerTasks) {
         this.reportSchedulerTasks = reportSchedulerTasks;
     }
 
+    /**
+     * Increments the an internal messageCount variable. Iterates over the report generators and
+     * calls generate if the current message count modulo the report interval is zero.
+     */
     public void process() {
         ++messageCount;
         reportSchedulerTasks.stream()
-                .filter(task -> task.isScheduleInterval(messageCount))
-                .forEach(ReportSchedulerTask::generate);
+                .filter(this::isScheduleInterval)
+                .forEach(IReportGenerator::generate);
+    }
+
+    private boolean isScheduleInterval(IReportGenerator generator) {
+        return messageCount % generator.getScheduleInterval() == 0;
     }
 }

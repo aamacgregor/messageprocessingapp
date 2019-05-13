@@ -9,8 +9,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class ReportTableGenerator {
-
+/**
+ * Responsible for creating an Ascii table from the supplied table name, column labels and data
+ */
+class ReportTableGenerator {
 
     private static final String ROW_SEPARATOR = "-";
     private static final String COLUMN_SEPARATOR = "|";
@@ -19,11 +21,23 @@ public class ReportTableGenerator {
     private final List<String> columnLabels;
     private final List<List<String>> rows = new LinkedList<>();
 
+    /**
+     * Constructs a ReportTableGenerator instance
+     *
+     * @param tableName    the name of the table being generated
+     * @param columnLabels the labels for the columns of the table
+     */
     public ReportTableGenerator(String tableName, String... columnLabels) {
         this.tableName = tableName;
         this.columnLabels = Arrays.asList(columnLabels);
     }
 
+    /**
+     * Adds a row of data, if the number of items does not match the number of column labels passed
+     * to the constructor then a ColumnWidthMismatchException exception will be thrown.
+     *
+     * @param items the data for one row in the table
+     */
     public void addRow(Object... items) {
         validateNumberOfItems(items.length);
         rows.add(Stream.of(items)
@@ -31,12 +45,17 @@ public class ReportTableGenerator {
                 .collect(Collectors.toList()));
     }
 
+    /**
+     * Generates the ascii table from the given data
+     *
+     * @return the generated ascii table.
+     */
     public String generate() {
         List<Integer> columnWidths = calculateColumnWidths();
 
         String tableHeader = generateFormattedTableRow(columnLabels, columnWidths);
         String fullWidthRowSeparator = new String(new char[tableHeader.length() - 1])
-                .replace("\0", "-") + "\n";
+                .replace("\0", ROW_SEPARATOR) + "\n";
 
 
         StringBuilder builder = new StringBuilder();

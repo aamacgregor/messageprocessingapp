@@ -1,29 +1,46 @@
 package com.aamacgregor.messageprocessor.report.detail;
 
-import com.aamacgregor.messageprocessor.accessor.dao.ISalesAdjustmentDao;
+import com.aamacgregor.messageprocessor.accessor.service.SalesAdjustmentAccessorService;
 import com.aamacgregor.messageprocessor.model.vo.SaleValueAdjustment;
 import com.aamacgregor.messageprocessor.report.IReportConsumer;
-import com.aamacgregor.messageprocessor.report.ISalesAdjustmentReportGenerator;
+import com.aamacgregor.messageprocessor.report.IReportGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
+/**
+ * Responsible for generating a sales adjustment report using ascii characters.
+ */
 @Component
-public class SalesAdjustmentAsciiReportGenerator implements ISalesAdjustmentReportGenerator {
+public class AsciiSalesAdjustmentReportGenerator implements IReportGenerator {
 
     private static final String TABLE_NAME = "Sales Adjustment Report";
     private static final String PRODUCT_COLUMN_LABEL = "Product";
     private static final String ADJUSTMENT_COLUMN_LABEL = "Adjustment";
     private static final String ADJUSTMENT_OPERATION_COLUMN_LABEL = "Adjustment Operation";
 
-    private final ISalesAdjustmentDao salesAdjustmentDao;
+    private final SalesAdjustmentAccessorService salesAdjustmentAccessorService;
     private final IReportConsumer reportConsumer;
 
-    public SalesAdjustmentAsciiReportGenerator(@Autowired ISalesAdjustmentDao salesAdjustmentDao,
+    @Value("${adjustment_report_interval}")
+    private int scheduleInterval;
+
+    /**
+     * @param salesAdjustmentAccessorService the service to use to retrieve sales adjustments
+     * @param reportConsumer                 the consumer to which the report table should be supplied.
+     */
+    public AsciiSalesAdjustmentReportGenerator(@Autowired SalesAdjustmentAccessorService salesAdjustmentAccessorService,
                                                @Autowired IReportConsumer reportConsumer) {
-        this.salesAdjustmentDao = salesAdjustmentDao;
+        this.salesAdjustmentAccessorService = salesAdjustmentAccessorService;
         this.reportConsumer = reportConsumer;
+    }
+
+
+    @Override
+    public int getScheduleInterval() {
+        return scheduleInterval;
     }
 
     @Override
@@ -33,7 +50,7 @@ public class SalesAdjustmentAsciiReportGenerator implements ISalesAdjustmentRepo
                 ADJUSTMENT_COLUMN_LABEL,
                 ADJUSTMENT_OPERATION_COLUMN_LABEL);
 
-        Collection<SaleValueAdjustment> adjustments = salesAdjustmentDao.readSalesAdjustments();
+        Collection<SaleValueAdjustment> adjustments = salesAdjustmentAccessorService.readSalesAdjustments();
 
         adjustments.forEach(salesSummary ->
                 tableGenerator.addRow(salesSummary.getProduct(),

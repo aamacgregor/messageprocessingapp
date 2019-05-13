@@ -3,6 +3,9 @@ package com.aamacgregor.messageprocessor.model.vo;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * Sales Summary data for use in the Sales Summary Report
+ */
 public class SalesSummary {
     private final String product;
     private final int quantity;
