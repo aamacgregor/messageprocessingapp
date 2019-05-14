@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Collection;
 
 @Component
 public class AsciiSalesReportGenerator implements IReportGenerator {
@@ -44,8 +42,7 @@ public class AsciiSalesReportGenerator implements IReportGenerator {
                 QUANTITY_COLUMN_LABEL,
                 TOTAL_VALUE_COLUMN_LABEL);
 
-        List<SalesSummary> salesSummaries = new ArrayList<>(salesAccessorService.calculateSalesSummaries());
-        salesSummaries.sort(Comparator.comparing(SalesSummary::getProduct));
+        Collection<SalesSummary> salesSummaries = salesAccessorService.calculateSalesSummaries();
 
         salesSummaries.forEach(salesSummary ->
                 tableGenerator.addRow(salesSummary.getProduct(),

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -56,7 +57,10 @@ public class SalesAdjustmentAccessorService {
      * @return The list of adjustments
      */
     public Collection<SaleValueAdjustment> readSalesAdjustments() {
-        return salesAdjustmentDao.readSalesAdjustments();
+        return salesAdjustmentDao.readSalesAdjustments()
+                .stream()
+                .sorted(Comparator.comparing(SaleValueAdjustment::getProduct))
+                .collect(Collectors.toList());
     }
 
     private Sale getSaleWithAdjustedValue(Sale sale, SaleValueAdjustment adjustment) {

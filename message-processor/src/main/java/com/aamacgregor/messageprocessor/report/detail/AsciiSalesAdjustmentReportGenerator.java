@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Responsible for generating a sales adjustment report using ascii characters.
@@ -52,8 +50,7 @@ public class AsciiSalesAdjustmentReportGenerator implements IReportGenerator {
                 ADJUSTMENT_COLUMN_LABEL,
                 ADJUSTMENT_OPERATION_COLUMN_LABEL);
 
-        List<SaleValueAdjustment> adjustments = new ArrayList<>(salesAdjustmentAccessorService.readSalesAdjustments());
-        adjustments.sort(Comparator.comparing(SaleValueAdjustment::getProduct));
+        Collection<SaleValueAdjustment> adjustments = salesAdjustmentAccessorService.readSalesAdjustments();
 
         adjustments.forEach(adjustment ->
                 tableGenerator.addRow(adjustment.getProduct(),
