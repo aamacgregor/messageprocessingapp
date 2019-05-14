@@ -3,7 +3,10 @@ package com.aamacgregor.messageprocessor.report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Responsible for scheduling report generation
@@ -12,7 +15,7 @@ import java.util.Collection;
 public class ReportScheduler {
 
     private int messageCount = 0;
-    private final Collection<IReportGenerator> reportSchedulerTasks;
+    private final List<IReportGenerator> reportSchedulerTasks;
 
 
     /**
@@ -21,7 +24,8 @@ public class ReportScheduler {
      * @param reportSchedulerTasks the report generators to use when generating the reports
      */
     public ReportScheduler(@Autowired Collection<IReportGenerator> reportSchedulerTasks) {
-        this.reportSchedulerTasks = reportSchedulerTasks;
+        this.reportSchedulerTasks = new ArrayList<>(reportSchedulerTasks);
+        this.reportSchedulerTasks.sort(Comparator.comparing(IReportGenerator::getScheduleInterval));
     }
 
     /**
